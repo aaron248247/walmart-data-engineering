@@ -24,6 +24,9 @@ sources:
           - name: WEEKLY_SALES
             data_tests:
               - not_null
+          - name: ISHOLIDAY
+            data_tests:
+              - not_null
 
       - name: fact_raw
         identifier: FACT_RAW
@@ -35,6 +38,10 @@ sources:
           - name: DATE
             data_tests:
               - not_null
+          - name: ISHOLIDAY
+            data_tests:
+              - not_null
+              
 
       - name: store_raw
         identifier: STORE_RAW
