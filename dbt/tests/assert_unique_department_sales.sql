@@ -1,12 +1,12 @@
 
 SELECT
-    Store_id,
-    Dept_id,
-    Store_Date,
+    STORE_ID,
+    DEPT_ID,
+    STORE_DATE,
     COUNT(*) AS row_count
 FROM {{ ref('stg_walmart_department') }}
 GROUP BY
-    Store_id,
-    Dept_id,
-    Store_Date
+    STORE_ID,
+    DEPT_ID,
+    STORE_DATE
 HAVING COUNT(*) > 1

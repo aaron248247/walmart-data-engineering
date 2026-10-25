@@ -1,6 +1,6 @@
 
 SELECT
-    STORE AS Store_id,
-    TYPE AS Store_type,
-    SIZE AS Store_size
+    STORE AS STORE_ID,
+    TYPE AS STORE_TYPE,
+    SIZE AS STORE_SIZE
 FROM {{ source('walmart_raw', 'store_raw') }}

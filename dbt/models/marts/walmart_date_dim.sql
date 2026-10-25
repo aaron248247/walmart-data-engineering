@@ -13,8 +13,8 @@ WITH source_data AS (
 
     SELECT DISTINCT
         DENSE_RANK() OVER (ORDER BY STORE_DATE) AS DATE_ID,
-        store_date,
-        IsHoliday
+        STORE_DATE,
+        ISHOLIDAY
        
     FROM {{ ref('stg_walmart_fact') }} 
 
@@ -24,24 +24,24 @@ final AS (
 
     SELECT 
         SOURCE.DATE_ID,
-        source.store_date,
-        source.IsHoliday,
+        source.STORE_DATE,
+        source.ISHOLIDAY,
 
         {% if is_incremental() %}
 
-        COALESCE(existing.insert_date, CURRENT_TIMESTAMP()) AS insert_date,
+        COALESCE(existing.INSERT_DATE, CURRENT_TIMESTAMP()) AS INSERT_DATE,
 
         CASE
-            WHEN existing.store_date IS DISTINCT FROM source.store_date
-              OR existing.IsHoliday IS DISTINCT FROM source.IsHoliday
+            WHEN existing.STORE_DATE IS DISTINCT FROM source.STORE_DATE
+              OR existing.ISHOLIDAY IS DISTINCT FROM source.ISHOLIDAY
             THEN CURRENT_TIMESTAMP()
-            ELSE existing.update_date
-        END AS update_date
+            ELSE existing.UPDATE_DATE
+        END AS UPDATE_DATE
 
         {% else %}
 
-        CURRENT_TIMESTAMP() AS insert_date,
-        CURRENT_TIMESTAMP() AS update_date
+        CURRENT_TIMESTAMP() AS INSERT_DATE,
+        CURRENT_TIMESTAMP() AS UPDATE_DATE
 
         {% endif %}
 
@@ -49,7 +49,7 @@ final AS (
 
     {% if is_incremental() %}
     LEFT JOIN {{ this }} AS existing
-        ON  source.date_id = existing.date_id
+        ON  source.DATE_ID = existing.DATE_ID
 
     {% endif %}
 
