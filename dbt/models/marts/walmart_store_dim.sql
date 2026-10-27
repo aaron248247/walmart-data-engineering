@@ -45,7 +45,7 @@ final AS (
         CASE
             WHEN existing.STORE_ID IS NULL
               OR existing.STORE_TYPE IS DISTINCT FROM source.STORE_TYPE
-              OR existing.sSTORE_SIZE IS DISTINCT FROM source.STORE_SIZE
+              OR existing.STORE_SIZE IS DISTINCT FROM source.STORE_SIZE
             THEN CURRENT_TIMESTAMP()
             ELSE existing.UPDATE_DATE
         END AS UPDATE_DATE

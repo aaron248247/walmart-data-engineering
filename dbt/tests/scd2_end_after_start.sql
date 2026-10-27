@@ -1,0 +1,4 @@
+SELECT *
+FROM {{ ref('walmart_fact_table') }}
+WHERE VRSN_END_DATE IS NOT NULL
+  AND VRSN_END_DATE <= VRSN_START_DATE

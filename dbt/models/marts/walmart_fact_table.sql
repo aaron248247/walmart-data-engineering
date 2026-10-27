@@ -46,7 +46,8 @@ source_data AS (
         AND swf.STORE_DATE = swd.STORE_DATE
     LEFT JOIN {{ ref('walmart_store_dim') }} AS wsd
         ON swf.STORE_ID = wsd.STORE_ID
-)
+        AND swd.DEPT_ID  = wsd.DEPT_ID
+)       
 
 {% if is_incremental() %}
 
@@ -55,6 +56,12 @@ source_data AS (
     FROM {{ this }}
     WHERE VRSN_END_DATE IS NULL
 ),
+
+table_metadata AS (
+    SELECT COALESCE(MIN(INSERT_DATE), (SELECT RUN_TS FROM run_metadata)) AS TABLE_INSERT_DATE
+    FROM {{ this }}
+),
+
 
 changed_rows AS (
     SELECT
@@ -161,10 +168,11 @@ first_versions AS (
         new_keys.MARKDOWN5,
         run_metadata.RUN_TS AS VRSN_START_DATE,
         CAST(NULL AS TIMESTAMP_NTZ) AS VRSN_END_DATE,
-        run_metadata.RUN_TS AS INSERT_DATE,
+        table_metadata.TABLE_INSERT_DATE AS INSERT_DATE,
         run_metadata.RUN_TS AS UPDATE_DATE
     FROM new_keys
     CROSS JOIN run_metadata
+    CROSS JOIN table_metadata
 )
 
 SELECT * FROM closed_versions

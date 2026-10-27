@@ -1,0 +1,24 @@
+models:
+  - name: walmart_fact_table
+    columns:
+      - name: STORE_ID
+        tests: [not_null]
+      - name: DEPT_ID
+        tests: [not_null]
+      - name: DATE_ID
+        tests: [not_null]
+      - name: VRSN_START_DATE
+        tests: [not_null]
+      - name: INSERT_DATE
+        tests: [not_null]
+    tests:
+      # each version is unique
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [STORE_ID, DEPT_ID, DATE_ID, VRSN_START_DATE]
+      # only one open version per key
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [STORE_ID, DEPT_ID, DATE_ID]
+          config:
+            where: "VRSN_END_DATE IS NULL"
