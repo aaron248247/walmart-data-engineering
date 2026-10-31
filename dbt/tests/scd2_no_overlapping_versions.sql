@@ -1,0 +1,12 @@
+SELECT *
+FROM (
+    SELECT
+        *,
+        LEAD(VRSN_START_DATE) OVER (
+            PARTITION BY STORE_ID, DEPT_ID, DATE_ID
+            ORDER BY VRSN_START_DATE
+        ) AS NEXT_START
+    FROM {{ ref('walmart_fact_table') }}
+)
+WHERE NEXT_START IS NOT NULL
+  AND (VRSN_END_DATE IS NULL OR VRSN_END_DATE <> NEXT_START)

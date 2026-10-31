@@ -1,0 +1,59 @@
+
+version: 2
+
+sources:
+  - name: walmart_raw
+    description: "Walmart source data ingested from AWS S3"
+    database: WALMART_ANALYTICS
+    schema: RAW
+
+    tables:
+      - name: department_raw
+        identifier: DEPARTMENT_RAW
+        description: "Weekly department sales"
+        columns:
+          - name: STORE
+            data_tests:
+              - not_null
+          - name: DEPT
+            data_tests:
+              - not_null
+          - name: DATE
+            data_tests:
+              - not_null
+          - name: WEEKLY_SALES
+            data_tests:
+              - not_null
+          - name: ISHOLIDAY
+            data_tests:
+              - not_null
+
+      - name: fact_raw
+        identifier: FACT_RAW
+        description: "Store-level economic and environmental features"
+        columns:
+          - name: STORE
+            data_tests:
+              - not_null
+          - name: DATE
+            data_tests:
+              - not_null
+          - name: ISHOLIDAY
+            data_tests:
+              - not_null
+              
+
+      - name: store_raw
+        identifier: STORE_RAW
+        description: "Store type and size information"
+        columns:
+          - name: STORE
+            data_tests:
+              - not_null
+              - unique
+          - name: TYPE
+            data_tests:
+              - not_null
+          - name: SIZE
+            data_tests:
+              - not_null
