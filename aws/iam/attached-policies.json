@@ -1,0 +1,8 @@
+﻿{
+    "AttachedPolicies": [
+        {
+            "PolicyName": "SnowFlakeWalmartS3ReadPolicy",
+            "PolicyArn": "arn:aws:iam::<account-id>:policy/<policy-name>"
+        }
+    ]
+}
