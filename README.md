@@ -31,9 +31,6 @@ AWS S3
 - snowflake/ - SQL scripts and ingestion
 - dbt/ - Transformation models and tests
 - python/ - Visualization scripts
-- notebooks/ - Exploratory analysis
-- figures/ - Generated visualizations
-- docs/ - Technical documentation
 
 ## Current Status
 
