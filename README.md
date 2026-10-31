@@ -40,7 +40,7 @@ AWS S3
 - [x] AWS S3 bucket created and populated
 - [x] AWS IAM read policy created
 - [x] AWS IAM role created
-- [ ] Snowflake storage integration configured
-- [ ] Data loaded into Snowflake
-- [ ] dbt transformations implemented
-- [ ] Python visualizations completed
+- [x] Snowflake storage integration configured
+- [x] Data loaded into Snowflake
+- [x] dbt transformations implemented
+- [x] Python visualizations completed
