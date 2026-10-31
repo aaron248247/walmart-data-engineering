@@ -1,0 +1,7 @@
+snowflake-connector-python[pandas]
+matplotlib
+seaborn
+plotly
+kaleido
+nbformat
+python-dotenv
